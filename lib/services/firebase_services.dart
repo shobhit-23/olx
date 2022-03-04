@@ -7,12 +7,15 @@ class FirebaseService {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   CollectionReference categories =
       FirebaseFirestore.instance.collection('categories');
+  CollectionReference products =
+      FirebaseFirestore.instance.collection('products');
 
   Future<void> addUser(uid) async {
     return users.doc(user!.uid).set({
       'uid': user!.uid,
-      'name': Null,
-      'mobile': user!.phoneNumber,
+      'name': "",
+      // 'mobile': user!.phoneNumber,
+      'mobile': "",
       'email': user!.email,
     }).catchError((error) => print("Failed to add user :$error"));
   }

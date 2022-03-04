@@ -4,7 +4,6 @@ import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:olx/authenti/google_auth.dart';
 import 'package:olx/authenti/phone_auth.dart';
-import 'package:olx/screens/otp_screen.dart';
 import 'package:olx/screens/home_screen.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:olx/services/firebase_services.dart';

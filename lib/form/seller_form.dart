@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:galleryimage/galleryimage.dart';
@@ -34,14 +31,15 @@ class _seller_formState extends State<seller_form> {
   validate(CategoryProvider provider) {
     if (_formkey.currentState!.validate()) {
       if (provider.urlList.length > 0) {
+        // print("data to firestore done");
         provider.dataToFirestore.addAll({
           'category': provider.SelectedCategory,
-          'brand': _brandController,
-          'year': _yearController,
-          'price': _priceController,
-          'fuel': _fuelController,
-          'kmDrive': _kmController,
-          'description': _descriptionController,
+          'brand': _brandController.text,
+          'year': _yearController.text,
+          'price': _priceController.text,
+          'fuel': _fuelController.text,
+          'kmDrive': _kmController.text,
+          'description': _descriptionController.text,
           'id': _service.user!.uid,
           'images': provider.urlList,
         });
@@ -346,7 +344,10 @@ class _seller_formState extends State<seller_form> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      height: 200,
+                    ),
                   ],
                 ),
               ),
@@ -357,7 +358,7 @@ class _seller_formState extends State<seller_form> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(25.0),
                 child: NeumorphicButton(
                   child: Text(
                     'Next',
@@ -371,8 +372,6 @@ class _seller_formState extends State<seller_form> {
                   ),
                   onPressed: () {
                     validate(_catProvider);
-                    print(_catProvider.dataToFirestore);
-                    Navigator.pushNamed(context, UserReviewScreen.id);
                   },
                 ),
               ),
