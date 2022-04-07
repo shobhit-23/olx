@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:olx/form/cat_provider.dart';
+import 'package:olx/form/seller_form.dart';
 import 'package:olx/screens/home_screen.dart';
 import 'package:olx/services/firebase_services.dart';
 import 'package:provider/provider.dart';
@@ -26,29 +27,6 @@ class _UserReviewScreenState extends State<UserReviewScreen> {
   var _addressController = TextEditingController();
   FirebaseService _service = FirebaseService();
 
-  /* @override
-  void didChangeDependencies() {
-    var _provider = Provider.of<CategoryProvider>(context);
-    _provider.getuserDetails();
-
-    //print(_provider.userDetails.data.runtimeType);
-    setState(() {
-      _nameController.text =
-          _provider.userDetails.data().toString().contains('name')
-              ? _provider.userDetails['name']
-              : '';
-      _phoneController.text =
-          _provider.userDetails.data().toString().contains('mobile')
-              ? _provider.userDetails['mobile']
-              : '';
-      _emailController.text =
-          _provider.userDetails.data().toString().contains('email')
-              ? _provider.userDetails['email']
-              : '';
-    });
-    super.didChangeDependencies();
-  }
-*/
   Future<void> updateUser(provider, Map<String, dynamic> data, context) async {
     return _service.users.doc(_service.user!.uid).update(data).then(
       (value) {
@@ -60,16 +38,19 @@ class _UserReviewScreenState extends State<UserReviewScreen> {
   }
 
   Future<void> saveProductToDb(CategoryProvider provider, context) async {
-    return _service.products
-        .doc(_service.user!.uid)
-        .set(provider.dataToFirestore)
-        .then(
+    return _service.products.add(provider.dataToFirestore).then(
       (value) {
         print('Product uploaded');
+        provider.clearData();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Product Uploaded')));
+        Navigator.pushReplacementNamed(context, home_screen.id);
       },
     ).catchError((error) {
       print(error);
       print("There was an error updating products");
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Failed to upload')));
     });
   }
 
@@ -132,16 +113,15 @@ class _UserReviewScreenState extends State<UserReviewScreen> {
                                   _provider,
                                   {
                                     'contactDetails': {
-                                      'name': _nameController.text,
                                       'mobile': _phoneController.text,
                                       'email': _emailController.text,
+                                      'name': _nameController.text,
                                       'address': _addressController.text,
-                                    }
+                                    },
                                   },
                                   context)
                               .whenComplete(() {
-                            Navigator.pushReplacementNamed(
-                                context, home_screen.id);
+                            print("update completed");
                           });
                         },
                         style: NeumorphicStyle(

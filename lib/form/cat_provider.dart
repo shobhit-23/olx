@@ -38,4 +38,10 @@ class CategoryProvider extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  clearData() {
+    this.urlList = [];
+    dataToFirestore = {};
+    notifyListeners();
+  }
 }

@@ -42,12 +42,16 @@ class category_widgit extends StatelessWidget {
             );
           } else {
             return Container(
-              height: 200,
+              height: 180,
               child: Column(
                 children: [
                   Row(
                     children: [
-                      Expanded(child: Text('Categories')),
+                      Expanded(
+                          child: Text(
+                        'Categories',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
                       TextButton(
                           onPressed: () {},
                           child: Row(
@@ -76,17 +80,27 @@ class category_widgit extends StatelessWidget {
                       _catProvider.getCategory(doc['catName']);
                       _catProvider.getSnapshot(doc);
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            width: 60,
-                            height: 50,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 75,
+                            height: 20,
                             child: Column(
                               children: [
                                 Image.network(doc['image']),
-                                Text(doc['catName']),
+                                Text(
+                                  doc['catName'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
-                            )),
-                      );
+                            ),
+                            // decoration: BoxDecoration(
+                            //   border: Border.all(
+                            //       color: Theme.of(context)
+                            //           .primaryColor
+                            //           .withRed(80)),
+                            // )
+                          ));
                     },
                   ))
                 ],

@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:olx/authenti/phone_auth.dart';
 import 'package:olx/form/UserReviewScreen.dart';
 import 'package:olx/form/seller_form.dart';
+import 'package:olx/screens/home_screen.dart';
 import 'package:olx/screens/login_page.dart';
 import 'package:olx/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             home: login(),
             routes: {
               login.id: (context) => login(),
+              home_screen.id: (context) => home_screen(),
               phoneauthscreen.id: (context) => phoneauthscreen(),
               UserReviewScreen.id: (context) => UserReviewScreen(),
             },
